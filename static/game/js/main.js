@@ -118,10 +118,20 @@ function moveLinesDown(lstColors, count) {
     }
 }
 
+function check_color_in_arr (lstColors) {
+    lstColors.forEach((value) => {
+        if (value == "rgb(0, 255, 0)") {
+            return false
+        }
+        return true
+    })
+}
+
 function findRowsWhereCellsFixed() {
-    // поиск строки у которой все ячейки зафиксированы (закрашены в черный цвет) > перенос цветов из следующей строки на текущую строку
+    // поиск строки у которой все ячейки зафиксированы (закрашены в черный цвет) > перенос цветов из строки выше на текущую строку
     for (let row in reverseTableField) {
 
+        console.log(row);
         let colorBlack = true;
         for (let element of reverseTableField[row]) {
             let nameClass = `.cell.${element}`;
@@ -129,13 +139,13 @@ function findRowsWhereCellsFixed() {
             let style = window.getComputedStyle(cell);
             let background = style.getPropertyValue('background-color');
             if (background == "rgb(0, 255, 0)") {
-                // если в строке найдена хотя бы одна ячейка не черного цвета, переходим к следующей строке что выше
+                // если в строке найдена хотя бы одна ячейка не черного цвета, переходим к строке выше
                 colorBlack = false
                 break
             }
         }
         if (colorBlack) {
-            // если у строки все ячеки черного цвета,
+            // если у строки все ячейки черного цвета,
             let lstColors = [];
             let count = Number(row);
             while (count < Object.keys(reverseTableField).length) {
@@ -148,13 +158,19 @@ function findRowsWhereCellsFixed() {
                     let background = style.getPropertyValue('background-color');
                     lstColors.push(background)
                 }
-                moveLinesDown(lstColors, count) // перекрашивание текущей строки цветами из строки что выше
+
+                moveLinesDown(lstColors, count); // перекрашивание текущей строки цветами из строки что выше
+
 
                 count++
             }
-            arrFixedCell = overwriteColors(arrFixedCell)
-            lstColors = []
-        };
+            if (check_color_in_arr) {
+                findRowsWhereCellsFixed();
+            };
+            arrFixedCell = overwriteColors(arrFixedCell);
+            lstColors = [];
+
+        }
     }
 };
 
@@ -276,7 +292,6 @@ async function srartGame(callback) {
                     fixedFigure(obj.position());
                     obj.position();
                     obj.paintOver();
-                    // findRowsWhereCellsFixed();
                     break
                 }
                 obj.paintOver();
