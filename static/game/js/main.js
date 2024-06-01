@@ -121,17 +121,15 @@ function moveLinesDown(lstColors, count) {
 function check_color_in_arr (lstColors) {
     lstColors.forEach((value) => {
         if (value == "rgb(0, 255, 0)") {
-            return false
+            return false;
         }
-        return true
+        return true;
     })
 }
 
 function findRowsWhereCellsFixed() {
     // поиск строки у которой все ячейки зафиксированы (закрашены в черный цвет) > перенос цветов из строки выше на текущую строку
     for (let row in reverseTableField) {
-
-        console.log(row);
         let colorBlack = true;
         for (let element of reverseTableField[row]) {
             let nameClass = `.cell.${element}`;
@@ -156,12 +154,9 @@ function findRowsWhereCellsFixed() {
                     let cell = document.querySelector(nameClass);
                     let style = window.getComputedStyle(cell);
                     let background = style.getPropertyValue('background-color');
-                    lstColors.push(background)
+                    lstColors.push(background);
                 }
-
                 moveLinesDown(lstColors, count); // перекрашивание текущей строки цветами из строки что выше
-
-
                 count++
             }
             if (check_color_in_arr) {

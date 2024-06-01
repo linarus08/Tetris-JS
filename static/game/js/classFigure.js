@@ -176,7 +176,7 @@ class RhodeIslandZ extends Figure {
         return cells
     }
 
-    paintOver(color = "blue") {
+    paintOver(color = "grey") {
         // метод заполняет цветом фигуру
         this.__position.forEach((value) => {
             let nameClass = `.cell.${value}`;
@@ -242,7 +242,7 @@ class Cleveland extends Figure {
         return cells
     }
 
-    paintOver(color = "blue") {
+    paintOver(color = "violet") {
         // метод заполняет цветом фигуру
         this.__position.forEach((value) => {
             let nameClass = `.cell.${value}`;
@@ -391,7 +391,7 @@ class BlueRicky extends Figure {
         return cells
     }
 
-    paintOver(color = "blue") {
+    paintOver(color = "purple") {
         // метод заполняет цветом фигуру
         this.__position.forEach((value) => {
             let nameClass = `.cell.${value}`;
@@ -466,7 +466,7 @@ class TeeWee extends Figure {
         return cells
     }
 
-    paintOver(color = "blue") {
+    paintOver(color = "maroon") {
         // метод заполняет цветом фигуру
         this.__position.forEach((value) => {
             let nameClass = `.cell.${value}`;
