@@ -84,10 +84,9 @@ function overwriteColors(arrFixedCell) {
                 arrFixedCell.indexOf(element) === -1 ? arrFixedCell.push(element) : {};
             }
         })
-    }
+    };
     return arrFixedCell
-}
-
+};
 
 function searchFixedCell(position) {
     // искать в массиве для фиксации ячейки совпадающие с ячейками фигуры
@@ -96,7 +95,7 @@ function searchFixedCell(position) {
         if (arrFixedCell.includes(value)) {
             result = true;
         }
-    })
+    });
     return result
 };
 
@@ -118,7 +117,7 @@ function moveLinesDown(lstColors, count) {
     }
 }
 
-function check_color_in_arr (lstColors) {
+function check_color_in_arr(lstColors) {
     lstColors.forEach((value) => {
         if (value == "rgb(0, 255, 0)") {
             return false;
@@ -141,7 +140,7 @@ function findRowsWhereCellsFixed() {
                 colorBlack = false
                 break
             }
-        }
+        };
         if (colorBlack) {
             // если у строки все ячейки черного цвета,
             let lstColors = [];
@@ -158,16 +157,30 @@ function findRowsWhereCellsFixed() {
                 }
                 moveLinesDown(lstColors, count); // перекрашивание текущей строки цветами из строки что выше
                 count++
-            }
+            };
             if (check_color_in_arr) {
                 findRowsWhereCellsFixed();
             };
             arrFixedCell = overwriteColors(arrFixedCell);
             lstColors = [];
-
         }
     }
 };
+
+const btn_stopGame = document.querySelector('.stop');
+btn_stopGame.addEventListener('click', ()=> {
+    location.reload();
+});
+
+const btn_startGame = document.querySelector('.start');
+btn_startGame.addEventListener("click", ()=> {
+    // старт игры
+    btn_startGame.setAttribute('disabled', true);
+    srartGame(srartGame);
+    globalThis.btn_stopGame;
+    btn_stopGame.removeAttribute('disabled');
+});
+
 
 async function srartGame(callback) {
     // основная функция запускает игру (старт)
@@ -221,7 +234,6 @@ async function srartGame(callback) {
                 } else if (event.code == 'Space') {
                     if (obj.name == 'I') {
                         if (obj.vertically) {
-                            obj.vertically = false
                             obj.x_1--;
                             obj.x_2--;
                             obj.x_3--;
@@ -230,8 +242,8 @@ async function srartGame(callback) {
                             obj.y_2++;
                             obj.y_3++;
                             obj.y_4++;
+                            obj.vertically = false
                         } else {
-                            obj.vertically = true
                             obj.x_1++;
                             obj.x_2++;
                             obj.x_3++;
@@ -240,13 +252,44 @@ async function srartGame(callback) {
                             obj.y_2--;
                             obj.y_3--;
                             obj.y_4--;
-                        }
+                            obj.vertically = true
+                        };
+                        if (searchFixedCell(obj.position())) {
+                            if (obj.vertically) {
+                                obj.x_1--;
+                                obj.x_2--;
+                                obj.x_3--;
+                                obj.x_4--;
+                                obj.y_1++;
+                                obj.y_2++;
+                                obj.y_3++;
+                                obj.y_4++;
+                                obj.vertically = false
+                            } else {
+                                obj.x_1++;
+                                obj.x_2++;
+                                obj.x_3++;
+                                obj.x_4++;
+                                obj.y_1--;
+                                obj.y_2--;
+                                obj.y_3--;
+                                obj.y_4--;
+                                obj.vertically = true
+                            };
+                        };
                     } else if (obj.name == 'S' || obj.name == 'Z') {
                         if (obj.vertically) {
                             obj.vertically = false
                         } else {
                             obj.vertically = true
-                        }
+                        };
+                        if (searchFixedCell(obj.position())) {
+                            if (obj.vertically) {
+                                obj.vertically = false
+                            } else {
+                                obj.vertically = true
+                            };
+                        };
                     } else if (obj.name == 'L' || obj.name == 'J' || obj.name == 'T') {
                         if (obj.vertically) {
                             if (obj.vertically_right) {
@@ -262,15 +305,32 @@ async function srartGame(callback) {
                                 obj.horizontal_up = true
                             };
                             obj.vertically = true
+                        };
+                        if (searchFixedCell(obj.position())) {
+                            if (obj.vertically) {
+                                if (obj.vertically_right) {
+                                    obj.vertically_right = false;
+                                } else {
+                                    obj.vertically_right = true
+                                };
+                                obj.vertically = false
+                            } else {
+                                if (obj.horizontal_up) {
+                                    obj.horizontal_up = false;
+                                } else {
+                                    obj.horizontal_up = true
+                                };
+                                obj.vertically = true
+                            };
                         }
                     }
-                }
+                };
             obj.position();
             obj.paintOver();
         });
-        for (i; i < heightTable; i++) {
+        while (i < heightTable) {
             await sleep(ms_);
-            if (!checkPossibilityOfMove(obj)) {
+            if (!checkPossibilityOfMove(obj) && i == 0) {
                 flag = false
             }
             if (flag) {
@@ -292,7 +352,8 @@ async function srartGame(callback) {
                 obj.paintOver();
             } else {
                 break
-            }
+            };
+            i++
         };
         fixedFigure(obj.position());
         findRowsWhereCellsFixed();
@@ -302,10 +363,11 @@ async function srartGame(callback) {
     if (flag) {
         callback(srartGame)
     } else {
+        globalThis.btn_startGame;
+        btn_startGame.removeAttribute('disabled');
         return
     }
 }
 
-srartGame(srartGame) // старт игры (запуск бесконечного цикла)
 
 export { table_field, }

@@ -16,6 +16,12 @@ body {
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
+    display: flex;
+}
+
+nav {
+    display: inline-block;
+    width: 200px;
 }
 
 .box {

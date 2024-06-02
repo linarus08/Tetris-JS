@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="{% static 'game/css/style.css' %}" type="text/css">
 </head>
 <body>
-    <div class="box">
+    <nav>
+        <button type="button" class="start">Играть</button>
+        <button type="button" class="stop" disabled="true">Остановить игру</button>
+    </nav>
+    <main class="box">
          <div class="playing-field">
             <div class="cell A1"></div>
             <div class="cell B1"></div>
@@ -212,7 +216,7 @@
             <div class="cell I20"></div>
             <div class="cell J20"></div>
         </div>
-    </div>
+    </main>
     <script type="module" src="{% static 'game/js/main.js' %}"></script>
     <script type="module" src="{% static 'game/js/classFigure.js' %}"></script>
 </body>
