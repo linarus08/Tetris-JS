@@ -1,4 +1,4 @@
-import { table_field } from "./main.js";
+import { table_field, searchFixedCell } from "./tetris.js";
 import { widthTable, heightTable, position_x, position_y } from "./consts.js";
 import { nameFigure } from "./consts.js";
 
@@ -47,8 +47,8 @@ class Square extends Figure {
 
     paintOver(color = "green") {
         this.__position.forEach((value) => {
-            let nameClass = `.cell.${value}`;
-            document.querySelector(nameClass).style.background = color;
+            // let nameClass = `.cell.${value}`;
+            document.querySelector(`.cell.${value}`).style.background = color;
         })
     }
 
@@ -78,6 +78,7 @@ class Line extends Figure {
                 this.x_2 = this.x_1 + 1;
                 this.x_3 = this.x_2 + 1;
                 this.x_4 = this.x_3 + 1;
+
             } else if (this.y_4 > heightTable) {
                 this.y_4 = heightTable;
                 this.y_3 = this.y_4 - 1;
