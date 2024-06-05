@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,13 @@
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="{% static 'game/css/style.css' %}" type="text/css">
 </head>
+
 <body>
+    <footer>
+        <div id="login">
+            <a href="#"><span class="login">Войти</span></a>
+        </div>
+    </footer>
     <nav class="menu">
         <div class="logo">
             <img src="{% static 'game/img/logo.png' %}" alt="logo">
@@ -20,10 +27,11 @@
             <li>Рейтинг</li>
             <li>Поиск</li>
         </ul>
-        
+
     </nav>
+
+    {% block content %}
     <main class="box">
-        {% block content %}
         <div class="playing-field">
             <div class="cell A1"></div>
             <div class="cell B1"></div>
@@ -227,10 +235,21 @@
             <div class="cell J20"></div>
         </div>
         <button type="button" class="btn-start">Start</button>
-        {% endblock content %}
     </main>
+    <section>
+        <div class="table-points">
+            <p class="result-game">Очки:</p>
+            <input type="text" value="0">
+            <br>
+            <p class="result-game">Время:</p>
+            <input type="time">
+        </div>points
+    </section>
+    {% endblock content %}
+
     <script type="module" src="{% static 'game/js/classFigure.js' %}"></script>
     <script type="module" src="{% static 'game/js/tetris.js' %}"></script>
     <script type="module" src="{% static 'game/js/main.js' %}"></script>
 </body>
+
 </html>

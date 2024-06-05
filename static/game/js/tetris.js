@@ -155,6 +155,7 @@ function findRowsWhereCellsFixed() {
             // если у строки все ячейки черного цвета,
             let lstColors = [];
             let count = Number(row);
+            addPointsInput();
             while (count < Object.keys(reverseTableField).length) {
                 // пока строка не дойдет до конца таблицы (получает света строки выше и переносим ее цвета на текущую строку)
                 for (let element of reverseTableField[count + 1]) {
@@ -167,6 +168,7 @@ function findRowsWhereCellsFixed() {
                 }
                 moveLinesDown(lstColors, count); // перекрашивание текущей строки цветами из строки что выше
                 count++
+                
             };
             if (check_color_in_arr) {
                 findRowsWhereCellsFixed();
@@ -176,6 +178,14 @@ function findRowsWhereCellsFixed() {
         }
     }
 };
+
+function addPointsInput() {
+    // в поле добавить очки
+    let points = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
+    const amountOfPoints = String(Number(points.value) + 200);
+    points.setAttribute('value', amountOfPoints);
+}
+
 
 async function startGame(callback) {
     // основная функция запускает игру (старт)
@@ -359,6 +369,9 @@ async function startGame(callback) {
     if (flag) {
         callback(startGame)
     } else {
+        alert('Игра законцена.')
+        const buttonStart = document.querySelector('.btn-start');
+        buttonStart.innerHTML = 'Start';
         return
     }
 };
