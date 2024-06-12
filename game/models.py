@@ -7,6 +7,5 @@ from django.db import models
 class Game(models.Model):
     userName = models.OneToOneField(User, on_delete=models.CASCADE)
     game_date = models.DateTimeField(auto_now_add=True)
-    time_start = models.DateTimeField()
-    time_stop = models.DateTimeField()
+    time_game = models.IntegerField(default='0')
     points_per_game = models.IntegerField()

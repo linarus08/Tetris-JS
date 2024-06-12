@@ -1,5 +1,6 @@
 import { Line, Square, RhodeIslandZ, Cleveland, OrangeRicky, BlueRicky, TeeWee } from './classFigure.js';
-import { nameFigure, position_x, position_y, widthTable, heightTable } from './consts.js';
+import { nameFigure, position_x, position_y, widthTable, heightTable, flag_1 } from './consts.js';
+import { flag_2 } from './main.js';
 
 let color_playing_field = getComputedStyle(document.documentElement).getPropertyValue('--color-playing-field');
 let childNodes = document.querySelector('.playing-field').childNodes;
@@ -179,17 +180,21 @@ function findRowsWhereCellsFixed() {
     }
 };
 
+let pointsCell;
 function addPointsInput() {
     // в поле добавить очки
-    let points = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
-    const amountOfPoints = String(Number(points.value) + 200);
-    points.setAttribute('value', amountOfPoints);
+    pointsCell = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
+    if (pointsCell) {
+        const amountOfPoints = String(Number(pointsCell.value) + 200);
+        pointsCell.setAttribute('value', amountOfPoints);
+        const dataPointsCell = document.querySelector('#id_points_per_game');
+        dataPointsCell.value = amountOfPoints;
+    }
 }
 
 
 async function startGame(callback) {
     // основная функция запускает игру (старт)
-    let flag = true;
     let ms_ = 400;
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     let obj = randomObj();
@@ -337,9 +342,9 @@ async function startGame(callback) {
             await sleep(ms_);
             if (!checkPossibilityOfMove(obj) && i == 0) {
 
-                flag = false;
+                flag_1 = false;
             }
-            if (flag) {
+            if (flag_1 && flag_2) {
                 obj.resetColor(color_playing_field);
                 obj.y_1++;
                 obj.y_2++;
@@ -366,10 +371,10 @@ async function startGame(callback) {
     };
     await stepDown();
     obj = null;
-    if (flag) {
+    if (flag_1 && flag_2) {
         callback(startGame)
     } else {
-        alert('Игра законцена.')
+        alert('Конец игры.')
         const buttonStart = document.querySelector('.btn-start');
         buttonStart.innerHTML = 'Start';
         return

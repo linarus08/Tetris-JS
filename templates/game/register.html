@@ -1,0 +1,20 @@
+{% extends "game/index.html" %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'game/css/logo.css' %}" type="text/css">
+{% endblock%}
+{% block content %}
+<p class="form-title">Регистрация</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for f in form %}
+      <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+      <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+    <button type="submit" id="btn-logo"><span class="logo-btn">Регистрация</span></button>
+    <a href="{% url 'home' %}" id="btn-cancel"><span class="logo-btn">Отмена</span></a>
+  </form>
+{% endblock content %}
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'game/js/logo.js' %}"></script>
+{% endblock scripts %}
