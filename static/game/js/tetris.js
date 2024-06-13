@@ -1,6 +1,6 @@
 import { Line, Square, RhodeIslandZ, Cleveland, OrangeRicky, BlueRicky, TeeWee } from './classFigure.js';
 import { nameFigure, position_x, position_y, widthTable, heightTable, flag_1 } from './consts.js';
-import { flag_2 } from './main.js';
+import { flag_2, interval } from './main.js';
 
 let color_playing_field = getComputedStyle(document.documentElement).getPropertyValue('--color-playing-field');
 let childNodes = document.querySelector('.playing-field').childNodes;
@@ -116,6 +116,7 @@ function checkPossibilityOfMove(obj) {
         console.log('конец');
         return false
     } else {
+
         return true
     }
 };
@@ -169,7 +170,6 @@ function findRowsWhereCellsFixed() {
                 }
                 moveLinesDown(lstColors, count); // перекрашивание текущей строки цветами из строки что выше
                 count++
-                
             };
             if (check_color_in_arr) {
                 findRowsWhereCellsFixed();
@@ -183,12 +183,11 @@ function findRowsWhereCellsFixed() {
 let pointsCell;
 function addPointsInput() {
     // в поле добавить очки
-    pointsCell = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
+    pointsCell = document.querySelector('body>section>div>input[type=text]:nth-child(2)');
     if (pointsCell) {
         const amountOfPoints = String(Number(pointsCell.value) + 200);
         pointsCell.setAttribute('value', amountOfPoints);
-        const dataPointsCell = document.querySelector('#id_points_per_game');
-        dataPointsCell.value = amountOfPoints;
+        $('#id_points_per_game').attr('value', amountOfPoints);
     }
 }
 
@@ -341,7 +340,8 @@ async function startGame(callback) {
         while (i < heightTable) {
             await sleep(ms_);
             if (!checkPossibilityOfMove(obj) && i == 0) {
-
+                fixedFigure(obj.position());
+                clearInterval(interval)
                 flag_1 = false;
             }
             if (flag_1 && flag_2) {

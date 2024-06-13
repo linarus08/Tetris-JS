@@ -25,7 +25,6 @@ def game_page(request):
         form = DataGameForm(request.POST)
         print(form)
         user = request.POST.get('userName')
-        print(user, '_________________________________________________________________________________________')
         print(user)
         if form.is_valid():
             userName = form.cleaned_data['name']

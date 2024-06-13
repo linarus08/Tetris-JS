@@ -23,4 +23,4 @@ class LoginUserForm(AuthenticationForm):
 class DataGameForm(forms.ModelForm):
     class Meta:
         model = Game
-        fields = {'userName', 'time_game', 'points_per_game'}
+        fields = {'time_game', 'points_per_game'}

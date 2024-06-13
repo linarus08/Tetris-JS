@@ -36,6 +36,7 @@
         </ul>
     </nav>
     <main id="box">
+
         {% block content %}
         <div class="playing-field">
             <div class="cell A1"></div>
@@ -239,35 +240,42 @@
             <div class="cell I20"></div>
             <div class="cell J20"></div>
         </div>
+
         {% if request.user.is_authenticated %}
-            <form method="post" id="form-game">{% csrf_token %}
+            <div class="button-game">
                 <button type="button" class="btn-start">Start</button>
-                <div class="form-data-game">
-                    {% for f in form %}
-                      <p><label for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
-                      <div class="form-error">{{ f.errors }}</div>
-                    {% endfor %}
-                    <p>{{ f }}</p>
-                </div>
-            </form>
+                <button type="button" class="btn-stop" disabled>Stop</button>
+            </div>
+            <div class="form-data-game">
+                <label for="id_username">Игрок</label>
+                <input type="text" id="id_username" name="user_id" value="{{ user.username }}">
+
+                <label for="id_points_per_game">Очки</label>
+                <input type="text" id="id_points_per_game" name="points_per_game">
+
+                <label for="id_time_game">Время</label>
+                <input type="text" id="id_time_game" name="time_game" value="00:00:00">
+            </div>
         {% else %}
             <button type="button" class="btn-start">Start</button>
         {% endif %}
+
         {% endblock content %}
+
     </main>
     {% if request.user.is_authenticated %}
         <section>
-        <div class="table-points">
-            <p class="result-game">Очки:</p>
-            <input type="text" value="0">
-            <br>
-            <p class="result-game">Время:</p>
-            <input type="time">
-            <br>
-            <p class="result-game">Уровень:</p>
-            <input type="text">
-        </div>
-    </section>
+            <div class="table-points">
+                <p class="result-game">Очки:</p>
+                <input type="text" value="0">
+                <br>
+                <p class="result-game">Время:</p>
+                <input id="timer" type="text" value="00:00:00">
+                <br>
+                <p class="result-game">Уровень:</p>
+                <input type="text">
+            </div>
+        </section>
     {% endif %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -276,6 +284,7 @@
     <script type="module" src="{% static 'game/js/classFigure.js' %}"></script>
     <script type="module" src="{% static 'game/js/tetris.js' %}"></script>
     <script type="module" src="{% static 'game/js/main.js' %}"></script>
+
     {% block scripts %}
     {% endblock scripts %}
 </body>
