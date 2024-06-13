@@ -18,7 +18,7 @@ btn_startGame.addEventListener("click", () => {
 
     } else {
         flag_2 = false;
-        $('.btn-start').submit(function (e) {
+        $('.btn-start').submit(async function (e) {
             $.ajax({
                 data: $(this).serialize(),
                 dataType: 'json',

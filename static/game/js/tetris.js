@@ -376,7 +376,7 @@ async function startGame(callback) {
     } else {
         alert('Конец игры.')
         const buttonStart = document.querySelector('.btn-start');
-        buttonStart.innerHTML = 'Start';
+        buttonStart.innerHTML = 'Start';  
         return
     }
 };
