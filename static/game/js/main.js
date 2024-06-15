@@ -7,7 +7,6 @@ let flag_2 = true
 let timer = document.querySelector('#timer');
 let timerData = document.querySelector('#id_time_game');
 
-
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
@@ -28,58 +27,66 @@ function updateTime() {
     console.log(timer);
 }
 
-
+const pointsCell = $('body>section>div>input[type=text]:nth-child(2)')
 startGame.addEventListener("click", (e) => {
     // старт игры
     flag_2 = true
     e.preventDefault();
+    if (pointsCell && timer) {
+        interval = setInterval(updateTime, 1000);
+        const pointsCell = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
+        pointsCell.setAttribute('value', 0);
+        timer.setAttribute('value', '00:00:00');
 
-    interval = setInterval(updateTime, 1000);
+    };
     tetris.resetColorTable();
     startGame.blur();
     tetris.startGame(tetris.startGame);
     startGame.setAttribute('disabled', true);
     stopGame.removeAttribute("disabled");
+    const dataPointsCell = $('#id_points_per_game');
+    dataPointsCell.attr('value', 0);
+    
 });
 
 stopGame.addEventListener("click", (e) => {
     // остановка игры
     e.preventDefault();
-    clearInterval(interval);
-    seconds = 0;
-    minutes = 0;
-    hours = 0;
-    timer.setAttribute('value', '00:00:00');
+    if (pointsCell && timer) {
+        clearInterval(interval);
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+    }
     flag_2 = false;
-
-    const userName = $('#id_username').attr('value');
-    const points = $('#id_points_per_game').attr('value');
-    const time = $('#id_time_game').attr('value');
-    const pointsCell = document.querySelector('body > section > div > input[type=text]:nth-child(2)');
-    pointsCell.setAttribute('value', 0);
-    const dataPointsCell = document.querySelector('#id_points_per_game');
-    dataPointsCell.value = 0;
     startGame.removeAttribute("disabled");
     stopGame.setAttribute('disabled', true);
 });
 
-// $(document).ready(function () {
-//     $('.btn-start').submit(function (e) {
-//         e.preventDefault();
-//         const textCommand = document.querySelector('.btn-start');
-//         console.log(textCommand);
-//         if (textCommand.innerHTML == 'Stop') {
-//             console.log('Стоп');
-//             $.ajax({
-//                 data: $(this).serialize(),
-//                 type: $(this).attr('method'),
-//                 url: '',
-//                 success: function (response) {
-//                     alert("Результаты игры сохранены");
-//                 }
-//             })
-//         }
-//     })
-// });
+$(document).ready(function () {
+    if ($('id_points_per_game')) {
+        $('.btn-stop').click(function (e) {
+            e.preventDefault();
+            // const userId = $('#id_username').attr('value');
+            const userId = $('#id_username').attr('value');
+            const time = $('#id_time_game').attr('value');
+            const points = $('#id_points_per_game').attr('value');
+            const name = $('')
+            console.log(name, time, points);
+            $.ajax({
+                url: 'http://127.0.0.1:8000/',
+                type: 'GET',
+                data: {
+                user_id: userId,
+                time: time,
+                points: points
+                },
+                success: function (data) {
+                    alert(data.res);
+                }
+            })
+        })
+    }
+});
 
 export { flag_2, interval }

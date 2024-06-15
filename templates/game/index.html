@@ -248,7 +248,7 @@
             </div>
             <div class="form-data-game">
                 <label for="id_username">Игрок</label>
-                <input type="text" id="id_username" name="user_id" value="{{ user.username }}">
+                <input type="text" id="id_username" name="user_id" value="{{ user.id }}">
 
                 <label for="id_points_per_game">Очки</label>
                 <input type="text" id="id_points_per_game" name="points_per_game">
@@ -257,11 +257,13 @@
                 <input type="text" id="id_time_game" name="time_game" value="00:00:00">
             </div>
         {% else %}
-            <button type="button" class="btn-start">Start</button>
+            <div class="button-game">
+                <button type="button" class="btn-start">Start</button>
+                <button type="button" class="btn-stop" disabled>Stop</button>
+            </div>
         {% endif %}
 
         {% endblock content %}
-
     </main>
     {% if request.user.is_authenticated %}
         <section>
@@ -278,9 +280,6 @@
         </section>
     {% endif %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-
-    </script>
     <script type="module" src="{% static 'game/js/classFigure.js' %}"></script>
     <script type="module" src="{% static 'game/js/tetris.js' %}"></script>
     <script type="module" src="{% static 'game/js/main.js' %}"></script>

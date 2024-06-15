@@ -1,6 +1,6 @@
 :root {
-    --width-cell: 30px;
-    --height-cell: 30px;
+    --width-cell: 25px;
+    --height-cell: 25px;
     --font-size-title: 14px;
     --color-playing-field: rgb(0, 255, 0);
 }   
@@ -57,8 +57,10 @@ body {
 #box {
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    border: 5px solid rgb(0 160 221);
+    height: fit-content;
+    margin: 10px auto 0px;
+    border: 3px solid rgb(0 160 221);
+    border-radius: 5px;
 }
 
 .name-columns {
@@ -127,9 +129,9 @@ body {
 .btn-start, .btn-stop {
     display: inline-block;
     background-color: aqua;
-    width: 40%;
+    width: 50%;
     height: 100%;
-    font: bold 20pt Arial, Helvetica, sans-serif;
+    font: bold 14pt Arial, Helvetica, sans-serif;
     color: rgb(24 25 27);
 }
 

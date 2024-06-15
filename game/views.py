@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from rest_framework import generics
-from game.forms import RegisterUserForm, LoginUserForm, DataGameForm
+from game.forms import (RegisterUserForm, LoginUserForm, DataGameForm)
 from game.models import Game
 from game.serializers import GameSerializer
 
@@ -20,20 +20,23 @@ def is_ajax(request):
 
 
 def game_page(request):
-    form = DataGameForm()
-    if request.method == 'POST' and is_ajax(request):
-        form = DataGameForm(request.POST)
-        print(form)
-        user = request.POST.get('userName')
-        print(user)
-        if form.is_valid():
-            userName = form.cleaned_data['name']
-            form.save()
-            return JsonResponse({"userName": userName}, status=200)
+    if request.method == 'GET' and is_ajax(request):
+        user_id = int(request.GET['user_id'])
+        time = request.GET['time']
+        points = request.GET['points']
+        if int(points) > 0:
+            dataGame = Game(userName_id=user_id, time_game=time, points_per_game=points)
+            dataGame.save()
+            print(user_id, time, points)
+            data = {
+                'res': 'Результаты игры сохранены'
+            }
         else:
-            errors = form.errors.as_json()
-            return JsonResponse({"errors": errors}, status=400)
-    return render(request, 'game/index.html', {'form': form})
+            data = {
+                'res': 'Результаты не сохранены'
+            }
+        return JsonResponse(data)
+    return render(request, 'game/index.html')
 
 
 class RegisterUser(CreateView):

@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 from game import views
-from game.views import GameAPIView, RegisterUser, LoginUser, logout_user
+from game.views import RegisterUser, LoginUser, logout_user, GameAPIView
 
 urlpatterns = [
     path('', views.game_page, name='home'),
