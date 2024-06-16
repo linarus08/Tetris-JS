@@ -1,0 +1,16 @@
+#rating {
+    width: 400px;
+    margin: 0;
+}
+
+#box {
+    background-color: aqua;
+}
+
+th, td {
+    font-size: 12px;
+}
+
+.table-points {
+    display: none;
+}

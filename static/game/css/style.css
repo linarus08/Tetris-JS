@@ -47,7 +47,7 @@ body {
     text-align: center;
 }
 
-#link-home {
+#link-home, #rating, #profile {
     font-size: 20px;
     color: rgb(28, 253, 223);
     margin-top: 10px;
@@ -106,11 +106,11 @@ body {
 .playing-field {
     grid-column: 2;
     grid-row: 2;
+    width: fit-content;
     height: fit-content;
     background-color: rgb(183, 255, 201);
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    width: fit-content;
 }
 
 .cell {
@@ -199,4 +199,10 @@ a {
     color: azure;
     right: 50px;
     bottom: 100px;
+}
+
+.title-profile {
+    color: rgb(28, 253, 223);
+    font-size: 20px;
+    margin-top: 2px;
 }

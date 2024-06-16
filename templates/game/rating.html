@@ -1,0 +1,33 @@
+{% extends "game/index.html" %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" href="{% static 'game/css/rating.css' %}" type="text/css">
+  <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" type="text/css">
+{% endblock%}
+{% block content %}
+<table id="myTable" class="display">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Время</th>
+            <th>Очки</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+      {% for game in games %}
+        <tr>
+            <td>{{ game.userName }}</td>
+            <td>{{ game.time_game }}</td>
+            <td>{{ game.points_per_game }}</td>
+            <td>{{ game.game_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+
+{% block scripts %}
+  <script type="text/javascript" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+  <script type="text/javascript" src="{% static 'game/js/rating.js' %}"></script>
+{% endblock scripts %}

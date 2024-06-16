@@ -47,7 +47,6 @@ class Square extends Figure {
 
     paintOver(color = "green") {
         this.__position.forEach((value) => {
-            // let nameClass = `.cell.${value}`;
             document.querySelector(`.cell.${value}`).style.background = color;
         })
     }
@@ -235,9 +234,18 @@ class Cleveland extends Figure {
         this.check_coord();
         let cells = [];
         if (this.vertically) {
-            cells = [table_field[this.y_2][this.x_1], table_field[this.y_3][this.x_1], table_field[this.y_2][this.x_2], table_field[this.y_1][this.x_2]]
+            cells = [
+                table_field[this.y_2][this.x_1], 
+                table_field[this.y_3][this.x_1], 
+                table_field[this.y_2][this.x_2], 
+                table_field[this.y_1][this.x_2]
+            ]
         } else {
-            cells = [table_field[this.y_1][this.x_1], table_field[this.y_1][this.x_2], table_field[this.y_2][this.x_2], table_field[this.y_2][this.x_3]]
+            cells = [
+                table_field[this.y_1][this.x_1], 
+                table_field[this.y_1][this.x_2], 
+                table_field[this.y_2][this.x_2], 
+                table_field[this.y_2][this.x_3]]
         };
         this.__position = cells
         return cells
@@ -302,15 +310,35 @@ class OrangeRicky extends Figure {
         let cells = [];
         if (this.vertically) {
             if (this.vertically_right) {
-                cells = [table_field[this.y_1][this.x_1], table_field[this.y_1][this.x_2], table_field[this.y_2][this.x_2], table_field[this.y_3][this.x_2]];
+                cells = [
+                    table_field[this.y_1][this.x_1], 
+                    table_field[this.y_1][this.x_2], 
+                    table_field[this.y_2][this.x_2], 
+                    table_field[this.y_3][this.x_2]
+                ];
             } else {
-                cells = [table_field[this.y_1][this.x_1], table_field[this.y_2][this.x_1], table_field[this.y_3][this.x_1], table_field[this.y_3][this.x_2]];
+                cells = [
+                    table_field[this.y_1][this.x_1], 
+                    table_field[this.y_2][this.x_1], 
+                    table_field[this.y_3][this.x_1], 
+                    table_field[this.y_3][this.x_2]
+                ];
             };
         } else {
             if (this.horizontal_up) {
-                cells = [table_field[this.y_2][this.x_1], table_field[this.y_2][this.x_2], table_field[this.y_2][this.x_3], table_field[this.y_1][this.x_3]];
+                cells = [
+                    table_field[this.y_2][this.x_1], 
+                    table_field[this.y_2][this.x_2], 
+                    table_field[this.y_2][this.x_3], 
+                    table_field[this.y_1][this.x_3]
+                ];
             } else {
-                cells = [table_field[this.y_2][this.x_1], table_field[this.y_1][this.x_1], table_field[this.y_1][this.x_2], table_field[this.y_1][this.x_3]];
+                cells = [
+                    table_field[this.y_2][this.x_1], 
+                    table_field[this.y_1][this.x_1], 
+                    table_field[this.y_1][this.x_2], 
+                    table_field[this.y_1][this.x_3]
+                ];
             }
         };
         this.__position = cells

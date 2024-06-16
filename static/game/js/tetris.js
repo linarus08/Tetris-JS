@@ -32,6 +32,7 @@ function getTable(allClassName) {
         };
         table[i] = arr_lines;
     };
+    console.log(table);
     return (table)
 };
 
@@ -130,6 +131,7 @@ function moveLinesDown(lstColors, count) {
 }
 
 function check_color_in_arr(lstColors) {
+    // проверить, есть ли в строке хотябы одна зеленая ячейка
     lstColors.forEach((value) => {
         if (value == "rgb(0, 255, 0)") {
             return false;
@@ -206,83 +208,41 @@ async function startGame(callback) {
             // обработчик событий
             obj.resetColor(color_playing_field);
             if (event.code == 'ArrowDown') {
-                obj.y_1++;
-                obj.y_2++;
-                obj.y_3++;
-                obj.y_4++;
+                obj.y_1++; obj.y_2++; obj.y_3++; obj.y_4++;
                 i++;
                 if (searchFixedCell(obj.position())) {
-                    obj.y_1--;
-                    obj.y_2--;
-                    obj.y_3--;
-                    obj.y_4--;
+                    obj.y_1--; obj.y_2--; obj.y_3--; obj.y_4--;
                 }
             } else
                 if (event.code == 'ArrowRight') {
-                    obj.x_1++;
-                    obj.x_2++;
-                    obj.x_3++;
-                    obj.x_4++;
+                    obj.x_1++; obj.x_2++; obj.x_3++; obj.x_4++;
                     if (searchFixedCell(obj.position())) {
-                        obj.x_1--;
-                        obj.x_2--;
-                        obj.x_3--;
-                        obj.x_4--;
+                        obj.x_1--; obj.x_2--; obj.x_3--; obj.x_4--;
                     }
                 } else if (event.code == 'ArrowLeft') {
-                    obj.x_1--;
-                    obj.x_2--;
-                    obj.x_3--;
-                    obj.x_4--;
+                    obj.x_1--; obj.x_2--; obj.x_3--; obj.x_4--;
                     if (searchFixedCell(obj.position())) {
-                        obj.x_1++;
-                        obj.x_2++;
-                        obj.x_3++;
-                        obj.x_4++;
+                        obj.x_1++; obj.x_2++; obj.x_3++; obj.x_4++;
                     }
                 } else if (event.code == 'Space') {
                     if (obj.name == 'I') {
                         if (obj.vertically) {
-                            obj.x_1--;
-                            obj.x_2--;
-                            obj.x_3--;
-                            obj.x_4--;
-                            obj.y_1++;
-                            obj.y_2++;
-                            obj.y_3++;
-                            obj.y_4++;
+                            obj.x_1--; obj.x_2--; obj.x_3--; obj.x_4--;
+                            obj.y_1++; obj.y_2++; obj.y_3++; obj.y_4++;
                             obj.vertically = false
                         } else {
-                            obj.x_1++;
-                            obj.x_2++;
-                            obj.x_3++;
-                            obj.x_4++;
-                            obj.y_1--;
-                            obj.y_2--;
-                            obj.y_3--;
-                            obj.y_4--;
+                            obj.x_1++; obj.x_2++; obj.x_3++; obj.x_4++;
+                            obj.y_1--; obj.y_2--; obj.y_3--; obj.y_4--;
                             obj.vertically = true
                         };
                         if (searchFixedCell(obj.position())) {
                             if (obj.vertically) {
-                                obj.x_1--;
-                                obj.x_2--;
-                                obj.x_3--;
-                                obj.x_4--;
-                                obj.y_1++;
-                                obj.y_2++;
-                                obj.y_3++;
-                                obj.y_4++;
+                                obj.x_1--; obj.x_2--; obj.x_3--; obj.x_4--;
+                                obj.y_1++; obj.y_2++; obj.y_3++; obj.y_4++;
                                 obj.vertically = false
                             } else {
-                                obj.x_1++;
-                                obj.x_2++;
-                                obj.x_3++;
-                                obj.x_4++;
-                                obj.y_1--;
-                                obj.y_2--;
-                                obj.y_3--;
-                                obj.y_4--;
+                                obj.x_1++; obj.x_2++; obj.x_3++; obj.x_4++;
+                                obj.y_1--; obj.y_2--; obj.y_3--; obj.y_4--;
                                 obj.vertically = true
                             };
                         };
@@ -346,15 +306,9 @@ async function startGame(callback) {
             }
             if (flag_1 && flag_2) {
                 obj.resetColor(color_playing_field);
-                obj.y_1++;
-                obj.y_2++;
-                obj.y_3++;
-                obj.y_4++;
+                obj.y_1++; obj.y_2++; obj.y_3++; obj.y_4++;
                 if (searchFixedCell(obj.position())) {
-                    obj.y_1--;
-                    obj.y_2--;
-                    obj.y_3--;
-                    obj.y_4--;
+                    obj.y_1--; obj.y_2--; obj.y_3--; obj.y_4--;
                     fixedFigure(obj.position());
                     obj.position();
                     obj.paintOver();

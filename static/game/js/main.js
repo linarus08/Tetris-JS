@@ -24,10 +24,10 @@ function updateTime() {
     }
     timer.setAttribute('value', `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
     timerData.setAttribute('value', `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-    console.log(timer);
 }
 
 const pointsCell = $('body>section>div>input[type=text]:nth-child(2)')
+
 startGame.addEventListener("click", (e) => {
     // старт игры
     flag_2 = true
