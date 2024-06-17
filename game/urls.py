@@ -11,5 +11,4 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
     path('rating/', rating_page, name='rating'),
     path('api/v1/gamelist/', GameAPIView.as_view()),
-
 ]

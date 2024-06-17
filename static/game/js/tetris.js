@@ -183,6 +183,9 @@ function findRowsWhereCellsFixed() {
 };
 
 let pointsCell;
+let ms_ = 500;
+let level = 1;
+
 function addPointsInput() {
     // в поле добавить очки
     pointsCell = document.querySelector('body>section>div>input[type=text]:nth-child(2)');
@@ -190,13 +193,22 @@ function addPointsInput() {
         const amountOfPoints = String(Number(pointsCell.value) + 200);
         pointsCell.setAttribute('value', amountOfPoints);
         $('#id_points_per_game').attr('value', amountOfPoints);
+
+        // изменить уровень сложности
+        if (amountOfPoints%2000 == 0) {
+            level++;
+            $('#level').attr('value', level);
+            if (ms_ != 50) {
+                ms_ -= 50;
+            }
+        }
     }
 }
 
 
 async function startGame(callback) {
     // основная функция запускает игру (старт)
-    let ms_ = 400;
+
     const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     let obj = randomObj();
     obj.position();

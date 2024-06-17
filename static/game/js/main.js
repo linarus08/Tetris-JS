@@ -46,6 +46,7 @@ startGame.addEventListener("click", (e) => {
     stopGame.removeAttribute("disabled");
     const dataPointsCell = $('#id_points_per_game');
     dataPointsCell.attr('value', 0);
+    $('#level').attr('value', 1)
     
 });
 
